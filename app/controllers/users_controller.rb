@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+  load_and_authorize_resource :find_by => :hash_id
+
 before_action :set_user, only: [:show, :edit, :update, :destroy]
 before_action :set_users, only: [:index]
 def index
@@ -50,7 +53,7 @@ def create
 respond_to do |format|
 begin
 if @user.valid? && @user.invite!(current_user)
-@user.add_role user_params[:roles].to_sym, current_account
+@user.add_role user_params[:roles], current_account
 format.html {
 redirect_to account_users_path,
 notice: 'User was successfully invited.'

@@ -1,5 +1,10 @@
 class ApplicationController < ActionController::Base
 
+rescue_from CanCan::AccessDenied do |exception|
+redirect_to root_url, :error => exception.message
+end
+add_flash_types :error
+
   before_action :authenticate_user!
 
   layout :layout_by_resource
