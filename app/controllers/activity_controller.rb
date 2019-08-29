@@ -1,6 +1,6 @@
 class ActivityController < ApplicationController
- load_and_authorize_resource :find_by => :hash_id
-
+  
+ authorize_resource :class => "ActivityController"
   def mine
   end
 

@@ -17,7 +17,9 @@ Rails.application.configure do
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
     config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = { :address => '127.0.0.1', :port => 1025 }
+config.action_mailer.smtp_settings = { :address => '127.0.0.1', :port => 1025,
+:ssl => true
+}
     config.cache_store = :memory_store
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"

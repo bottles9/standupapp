@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :standups
    mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
-  default_url_options :host => "example.com"
+  default_url_options :host => "localhost"
 
   devise_for :users,controllers: {registrations: 'registrations'}
   resource :accounts
@@ -16,7 +17,8 @@ resources :users
 end
   get 'activity/mine'
   get 'activity/feed'
-  
+
+  get 'dates/:date', to: 'dates#update', as: 'update_date'
   root 'activity#mine'
 
 
