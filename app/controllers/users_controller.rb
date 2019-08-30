@@ -103,6 +103,7 @@ def set_choices
 @choices = []
 @choices << ["Admin", 'admin']
 @choices << ["User", 'user']
+
 end
 def user_params
 params.require(:user).permit(:name, :email, :role, :time_zone)

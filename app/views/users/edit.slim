@@ -24,7 +24,7 @@
               .form-group
                 = label_tag "user[role]", "Role", class: 'control-label col-lg-2'
                 .col-lg-10
-                  = select_tag "user[role]", options_for_select(@choices, @user.roles&.first&.name || {} ) , class: 'form-control'
+                  = select_tag "user[role]", options_for_select(@choices, @user&.roles&.first&.name || @user&.add_role( @role )) , class: 'form-control'
             .box-footer style="height: 55px;"
               span.pull-right    
                 = f.submit "Edit User", class: "btn btn-primary"
