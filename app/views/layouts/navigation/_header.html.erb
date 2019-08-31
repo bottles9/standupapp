@@ -1,0 +1,58 @@
+<header class="main-header">
+	<a href="/">Standup App</a>
+	<nav class="navbar navbar-static-top" role="navigation">
+		<div class="pull-left">
+			<a href="/t">Teams</a>
+			<a href="/s">Standups</a>
+			<a class="logo standup" href="/s/new/#{Date.today.iso8601}">Submit a Standup</a>	
+		</div>
+	</nav>
+	<div class="navbar-custom-menu">
+		<ul class="nav navbar-nav">
+			<li class="dropdown notification-menu">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i class="fa fa-bell-o"></i>
+					<span class="label label-warning">10</span>
+				</a>
+				<ul class="dropdown-menu">
+					<li class="header">You have 10 notifications</li>
+					<li>
+						<ul class="menu">
+							<li>
+								<a href="#">
+									<i class="ion ion-ios-people info">Notification title</i>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="footer">
+						<a href="#">View all</a>						
+					</li>
+				</ul>
+			</li>
+			<li class="dropdown user user-menu">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<img  class="user-image{alt=('User Image')" src="#{gravatar_image_url(current_user.email, size: 25, secure:false)}"}>
+					<span class="hidden-xs"><%= current_user.name %></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li class="header"><%= current_user.name %></li>
+					<li class="divider"></li>
+					<li>
+						<a href="/user/me">Profile</a>
+					</li>
+					<li>
+						<a href="/account/users">Settings</a>
+					</li>
+					<li>
+						<%= link_to(destroy_user_session_path, method: :delete) do %>
+						<i class="fa fa-sign-out">Log Out</i>
+						<% end %>
+					</li>
+				</ul>
+			</li>
+			
+		</ul>
+		
+	</div>
+</header>

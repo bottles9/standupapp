@@ -7,7 +7,11 @@ def index
 @teams = visible_teams
 end
 def show
-@team = Team.friendly.includes(:users).find(params[:id])
+set_teams_and_standups(Date.today.iso8601)
+end
+
+def standups
+set_teams_and_standups(current_date)
 end
 def new
 @team = Team.new
@@ -87,6 +91,15 @@ end
 
 def use_time_zone(&block)
 Time.use_zone(@team.timezone, &block)
+end
+
+def set_teams_and_standups(date)
+@team = Team.friendly.includes(:users).find(params[:id])
+@standups = @team.users.flat_map do |u|
+u.standups.where(standup_date: date)
+.includes(:dids, :todos, :blockers)
+.references(:tasks)
+end
 end
 
 end

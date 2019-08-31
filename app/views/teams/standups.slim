@@ -1,0 +1,13 @@
+.content
+  = render partial: 'layouts/date_change', locals:\
+    {reload_path: "/t/#{@team.hash_id}/s"}
+  = render partial: 'events', locals:\
+    {events: @events, title: "#{@team.name}'s Events"}
+  .row
+    .col-lg-12
+      .box
+        .box-header.with-border
+          h3.box-title= "#{@team.name}'s Standups"
+
+      #team-standups-container
+        = render partial: 'standups', locals: {standups: @standups}

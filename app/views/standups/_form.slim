@@ -1,0 +1,47 @@
+= form_for @standup do |f|
+  = f.hidden_field :standup_date, value: current_date
+  - if @standup.errors.any?
+    = render partial: 'shared/model_errors', locals: {model: @standup}
+  = render partial: 'layouts/date_change', locals:\
+    {reload_path: "/s/#{action_name}"}
+  .row
+    .col-sm-8.col-sm-offset-2
+      .box
+        .box-header
+          h3 What did you do since your last standup?
+        .box-body
+          = f.fields_for :dids do |did|
+            = render 'did_fields', f: did
+          .links
+            = link_to_add_association f, :dids, class: 'btn btn-sm bg-olive',\
+              style: 'border-radius:50%' do
+                i.fa.fa-plus
+  .row
+    .col-sm-8.col-sm-offset-2
+      .box
+        .box-header
+          h3 What are you doing today?
+        .box-body
+          = f.fields_for :todos do |todo|
+            = render 'todo_fields', f: todo
+          .links
+            = link_to_add_association f, :todos, class: 'btn btn-sm bg-olive',\
+              style: 'border-radius:50%' do
+                i.fa.fa-plus
+  .row
+    .col-sm-8.col-sm-offset-2
+      .box
+        .box-header
+          h3 What is blocking you?
+        .box-body
+          = f.fields_for :blockers do |blocker|
+            = render 'blocker_fields', f: blocker
+          .links
+            = link_to_add_association f, :blockers,\
+              class: 'btn btn-sm bg-olive',\
+              style: 'border-radius:50%' do
+                i.fa.fa-plus
+
+  .row
+    .col-sm-8.col-sm-offset-2
+      = f.submit 'Save', class: ' btn btn-primary'
