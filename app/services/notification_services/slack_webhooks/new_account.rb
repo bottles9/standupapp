@@ -2,7 +2,7 @@ module NotificationServices
 class SlackWebhooks
 class NewAccount < SlackWebhooks
 WEBHOOK_URL =
-'https://hooks.slack.com/services/89ypfhuiwquhfwfwef908wefoij'.freeze
+  'https://hooks.slack.com/services/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'.freeze
 def initialize(params)
 @user = params[:user]
 @account = params[:account]
@@ -16,7 +16,7 @@ def send_message
 super(WEBHOOK_URL, message)
 end
 def message
-"A New User has appeared! #{account.name} - \
+"A New User has appeared! #{account.name} - 
 #{user.name} || ENV: #{Rails.env}"
 end
 end

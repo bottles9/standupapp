@@ -6,8 +6,8 @@ end
 def self.call(params)
 new(params).perform
 end
-private
-attr_reader :user, :account
+#private
+#attr_reader :user, :account
 def perform
 begin
 account_create
@@ -21,6 +21,8 @@ else
 OpenStruct.new(success?: true, user: user, account: account, error: nil)
 end
 end
+private
+attr_reader :user, :account 
 def account_create
 post_account_setup if account.save!
 end
@@ -37,5 +39,7 @@ def notify_slack
 account: account,
 user: user
 )
+
+  SlackNotificationJob.perform_later(@user)
 end
 end
