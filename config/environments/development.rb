@@ -17,8 +17,23 @@ Rails.application.configure do
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
   
-config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-config.action_mailer.delivery_method = :letter_opener
+#config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+#config.action_mailer.delivery_method = :letter_opener
+    #
+    #
+
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.perform_deliveries = true
+ActionMailer::Base.smtp_settings = {
+user_name: 'postmaster@sandbox89be3c9cd5b54aef8f1dd6957a8f5c8e.mailgun.org',
+password: '72d47d3c629f29d11ba24256a3f4322b-4167c382-f9b7037f',
+domain: 'sandbox89be3c9cd5b54aef8f1dd6957a8f5c8e.mailgun.org',
+address: 'smtp.mailgun.org',
+port: 587,
+authentication: :plain
+}
+
+
     config.cache_store = :memory_store
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"

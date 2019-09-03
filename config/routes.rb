@@ -54,6 +54,9 @@ ActiveSupport::SecurityUtils.secure_compare(
 end if Rails.env.production?
 mount Sidekiq::Web, at: "/sidekiq"
 
+# mount using default path: /email_processor
+mount_griddler
+
   root 'activity#mine'
 
 
