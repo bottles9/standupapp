@@ -32,7 +32,7 @@ user.save!
 user.add_role :admin, account
 end
 def send_welcome_email
-#WelcomeEmailMailer.welcome_email(user).deliver_later
+WelcomeEmailMailer.welcome_email(user).deliver_later
 end
 def notify_slack
   NotificationServices::SlackWebhooks::NewAccount.(
