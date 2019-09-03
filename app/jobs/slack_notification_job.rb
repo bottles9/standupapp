@@ -1,7 +1,10 @@
 class SlackNotificationJob < ApplicationJob
-  queue_as :default
 
-  def perform(*args)
+  include Sidekiq::Worker
+sidekiq_options :retry => 15 # Only 15 retries and then to the Dead Job Queue
+  queue_as :notifications
+
+  def perform(user)
     # Do something later
     #
     notifier = Slack::Notifier.new(
