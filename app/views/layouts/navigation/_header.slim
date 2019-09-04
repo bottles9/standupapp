@@ -8,6 +8,7 @@ header.main-header
         | Teams
       a.logo href="/s"
         | Standups
+        =link_to "out", destroy_user_session_path, merhod: :delete,class:"logo"
       a.logo.standup href="/s/new/#{Date.today.iso8601}"
         | Submit a Standup
     /! Navbar Right Menu
@@ -42,9 +43,9 @@ header.main-header
                 a href="/account/users"
                   | Settings
               li
-                = link_to 'Billing', billing_index_path
+               /= link_to 'Billing', billing_index_path
             li.divider
             li
-              = link_to(destroy_user_session_path, :method => :delete) do
+              = link_to(destroy_user_session_path, method: :delete) do
                 i.fa.fa-sign-out
                 | Log out
