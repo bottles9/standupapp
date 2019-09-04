@@ -1,0 +1,8 @@
+li.header
+  = "Last #{notification_standups.size} notifications"
+  li
+    ul.menu
+      - notification_standups.each do |standup|
+        li
+          a
+            = "#{standup.user.name} just added a standup for #{standup.standup_date}"

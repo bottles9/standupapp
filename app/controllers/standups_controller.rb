@@ -38,6 +38,7 @@ standup_date: current_date
 
     respond_to do |format|
       if @standup.save
+        invoke_cables
         format.html {
           redirect_back(
 fallback_location: root_path,
@@ -56,6 +57,7 @@ notice: 'Standup was successfully created.'
   def update
     respond_to do |format|
       if @standup.update(standup_params)
+        invoke_cables
         format.html {
 
 
@@ -111,5 +113,13 @@ redirect_to(edit_standup_path(date: current_date)) and return true
 elsif standup.nil? && action_name == 'edit'
 redirect_to(new_standup_path(date: current_date)) and return true
 end
+end
+
+def invoke_cables
+CableServices::NotifyJobsService.(
+standup: @standup,
+action: action_name.to_sym,
+user: current_user
+)
 end
 end
