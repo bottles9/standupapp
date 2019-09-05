@@ -1,4 +1,4 @@
 web: bundle exec rails s -p ${PORT:-3000}
-worker: bundle exec sidekiq -q default -q mailers
+worker: bin/sidekiq -q default -q mailers
 
 
