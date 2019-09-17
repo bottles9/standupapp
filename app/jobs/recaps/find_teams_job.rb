@@ -2,6 +2,7 @@ module Recaps
 class FindTeamsJob < ApplicationJob
 def perform(*_args)
 teams.each do |team|
+next unless team.account.subscription&.active?
 Recaps::EmailUserOnTeamJob.perform_later(team)
 end
 end

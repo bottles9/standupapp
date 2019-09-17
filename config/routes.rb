@@ -37,6 +37,7 @@ member do
 get 's', to: 'users#standups', as: 'standups'
 end
 end
+resources :plans, only: [:index, :show], controller: 'accounts/plans'
 end
 
 
@@ -56,6 +57,16 @@ mount Sidekiq::Web, at: "/sidekiq"
 
 # mount using default path: /email_processor
 mount_griddler
+
+mount StripeEvent::Engine, at: '/billing/events' 
+resources :cards, only: [:create]
+resources :plans, only: [:index, :show]
+resources :subscriptions, only: [:create, :destroy]
+resources :billing, only: [:index] do
+collection do
+get 'change_card'
+end
+end
 
   root 'activity#mine'
 

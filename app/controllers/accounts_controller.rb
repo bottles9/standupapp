@@ -7,7 +7,7 @@ redirect_to root_path unless current_user.account.nil?
 end
 def create
   @account = Account.new(account_params)
-result = NewRegistrationService.(account: @account, user: current_user)
+result = NewRegistrationService.(account: @account, user: current_user, plan: params[:plan])
 if result.success?
 redirect_to root_path, success: 'Your account has been created!'
 else

@@ -17,6 +17,13 @@ def new
 @team = Team.new
 end
 def create
+  check_resource_against_limits(:users) do
+return redirect_back(
+fallback_location: root_path,
+notice: "You do not have the resources to create this User,\
+please consider upgrading your plan."
+)
+end
 
   @team = Team.new(team_params.except("days"))
 @team.account_id = current_account.id

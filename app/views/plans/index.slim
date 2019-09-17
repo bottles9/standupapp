@@ -1,0 +1,27 @@
+#plans.content
+  .row
+    .col-sm-9.col-sm-offset-1
+      .box
+        .box-header.with-border
+          h3.box-title Plans
+  .row.row-eq-height
+    - @plans.each do |plan|
+      .col-sm-3 class="#{'col-sm-offset-1' if plan == @plans.first}"
+        .box
+          .box-header
+            .pull-right
+              h2= Money.new(plan.amount).format
+            h3.box-title= plan.human_name
+          .box-body
+            - disabled = plan.stripe_id == current_subscription.plan_id
+            a.btn.btn-primary.btn-block{href=plan_path(plan.stripe_id)
+              style="margin: 10px 0px"
+              class="#{disabled ? 'btn-default disabled' : 'btn-primary'}"
+              disabled=('disabled' if disabled)}
+                h4= "#{disabled ? 'Current Plan' : 'Select Plan'}"
+            p
+              strong= "#{plan.users} users"
+            p
+              strong= "#{plan.teams} teams"
+            p
+              = "#{plan.integration ? 'Allows' : 'Doesn\'t Allow'} Integrations"

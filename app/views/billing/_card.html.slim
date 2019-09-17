@@ -1,0 +1,32 @@
+#card.content
+  .row
+    .col-lg-8.col-offset-lg-2
+      .box
+        .box-header
+          h3.box-title Enter your card information:
+        .box-body
+          = form_tag(url_path, id: 'payment-form') do
+            = (hidden_field_tag 'plan', params[:id]) if params[:id]
+            .form-group
+              .row
+                .col-sm-12
+                  label for="card-element"
+                    |
+                  #card-element style="border: 1px solid #d2d6de;padding: 2px;"
+                  #card-errors role="alert"
+            .form-group
+              .row
+                .col-sm-12
+                  input{
+                    type="hidden"
+                    name="stripeToken"
+                    id="stripeToken"
+                  }
+                  input{
+                    name="cardholder-name"
+                    id="cardholder-name"
+                    class="field form-control"
+                    placeholder="Name on Card"}
+            = submit_tag\
+              "#{params[:id].present? ? 'Submit Payment' : 'Update Card'}",\
+              class: 'btn btn-default'

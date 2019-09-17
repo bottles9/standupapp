@@ -2,6 +2,7 @@ class NewRegistrationService
 def initialize(params)
 @user = params[:user]
 @account = params[:account]
+@plan = params[:plan]
 end
 def self.call(params)
 new(params).perform
@@ -11,6 +12,7 @@ end
 def perform
 begin
 account_create
+stripe_create
 send_welcome_email
 notify_slack
 rescue ActiveRecord::RecordInvalid => exception
@@ -21,8 +23,17 @@ else
 OpenStruct.new(success?: true, user: user, account: account, error: nil)
 end
 end
+
+def stripe_create
+PaymentServices::Stripe::Subscription::CreationService.(
+account: account,
+user: user,
+plan: plan
+)
+end
+
 private
-attr_reader :user, :account 
+attr_reader :user, :account, :plan 
 def account_create
 post_account_setup if account.save!
 end

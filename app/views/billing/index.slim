@@ -1,0 +1,79 @@
+#billing.content
+  .row
+    .col-sm-9.col-sm-offset-1
+      .box
+        .box-header.with-border
+          h3.box-title Billing
+
+  .row
+    .col-sm-9.col-sm-offset-1
+      .box
+        .box-header.with-border
+          h3.box-title Plan Information
+        .box-body
+          - if current_subscription&.active?
+            p
+              .pull-right
+                = render partial: 'billing/cancel',\
+                  locals: {subscription: current_subscription}
+              = "Plan: #{current_subscription.plan_id.capitalize}"
+              - if current_subscription.active?
+                |  (
+                a href="/plans"
+                  | Change Plan
+                |  )
+            hr
+            h4 Usage
+            p
+              = "Users: #{current_account.users.count}/\
+              #{Plan.find(current_subscription.plan_id).users}"
+            p
+              = "Teams: #{current_account.teams.count}/\
+              #{Plan.find(current_subscription.plan_id).teams}"
+          - else
+            p
+              | There is no active plan on the account. To add one
+              = link_to "click here.", plan_path('free')
+          - if current_subscription&.card_last4.present?
+            p
+              .pull-right
+                a.btn.btn-sm.btn-default{
+                  href=change_card_billing_index_path}
+                    | Change Card
+              i.fa.fa-credit-card
+              = " Payment: #{current_subscription.card_type} card ending in \
+                #{current_subscription.card_last4} \
+                Expiration: #{current_subscription.card_expiration}"
+            hr
+          - else
+            a.btn.btn-sm.btn-default href=(change_card_billing_index_path)
+              | Add Card
+  .row
+    .col-sm-9.col-sm-offset-1
+      .box
+        .box-header.with-border
+          h3.box-title Plan Charge History
+        .box-body
+          table.table
+            thead
+              tr
+                th Status
+                th ID
+                th Date
+                th Amount
+                th Description
+                th Payment Method
+            tbody
+              - if @charges.blank?
+                tr
+                  td.text-center colspan="6"
+                    | There are no charges on this account at this time.
+              - else
+                - @charges.each do |charge|
+                  tr
+                    td= charge.status
+                    td= charge.id[3..-1]
+                    td= Time.at(charge.created)
+                    td= Money.new(charge.amount).format
+                    td= charge.statement_descriptor
+                    td= "#{charge&.source&.brand} #{charge&.source&.last4}"

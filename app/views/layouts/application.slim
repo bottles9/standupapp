@@ -11,6 +11,10 @@ html
     script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"
     = stylesheet_link_tag href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
      stylesheet_link_tag href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css"
+     script src = "https://js.stripe.com/v3/"
+     javascript:
+       var stripe = Stripe("#{ENV['STRIPE_PUBLISHABLE_KEY']}");
+
   body.fixed.skin-blue-light
     .wrapper
       = render 'layouts/navigation/layout'

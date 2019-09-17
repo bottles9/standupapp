@@ -1,0 +1,8 @@
+= form_tag subscription_path(current_subscription.stripe_subscription_id),\
+  method: :delete do
+    button.btn.btn-default{
+      type='submit'
+      disabled=(!current_subscription.active?)
+      data={ confirm: 'Are you sure?' }}
+        span
+          | Cancel Subscription
