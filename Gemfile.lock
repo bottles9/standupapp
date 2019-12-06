@@ -272,7 +272,7 @@ GEM
       actionmailer (>= 3)
       premailer (~> 1.7, >= 1.7.9)
     public_suffix (4.0.1)
-    puma (3.12.1)
+    puma (3.12.2)
     raabro (1.1.6)
     rack (2.0.7)
     rack-cors (1.0.3)
@@ -504,7 +504,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   poltergeist
   premailer-rails
-  puma (~> 3.11)
+  puma (~> 3.12)
   rack-cors
   rails (~> 5.2.3)
   rails-controller-testing
